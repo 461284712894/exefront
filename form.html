@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="cv.css">
+    <title>mon CV </title>
+</head>
+<body>
+    <div class="main">
+        <form>
+            <div class="left">
+            
+                <input type="file" id="avatar" name="avatar" accept="image/*">
+                <button id="clearButton" style="display: none;">Effacer l'image</button>
+                <img id="output" src="#" alt="Aperçu de l'image" style="max-width: 300px; max-height: 300px; margin-top: 20px; display: none;">
+
+            
+            
+                <div class="box-1">
+                    <div class="heading">
+                        <p>CONTACT</p>
+                    </div>
+                        <div class="cont">
+                            <i class='bx bxs-home' >Adresse</i><br><input type="text" class="input-bar"><br>
+                            <i class='bx bxs-phone-call' >call</i><br><input type="tel" class="input-bar"><br>
+                            <i class='bx bx-envelope' >mail</i><br><input type="email" class="input-bar">
+                        </div>
+                </div>
+                <div class="box-1">
+                    <div class="heading">
+                        <p>LANGUES</p>
+                    </div>
+                        <div class="langues">
+                            <p class="p1">ARAB
+                                <div class="skill-container">
+                                    <input type="range">
+                                </div>
+                            </p>
+                            <p class="p1">FRANCAIS
+                                <div class="skill-container">
+                                    <input type="range">
+                                </div>
+                            </p>
+                            <p class="p1">ANGLAIS
+                                <div class="skill-container">
+                                    <input type="range">
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+
+                <div class="box-1">
+                    <div class="heading">
+                        <p>Qualités</p>
+                    </div>
+                        <ul>
+                            <li> <input type="text"> </li>
+                            <li><input type="text"></li>
+                            <li><input type="text"></li>
+                            <li><input type="text"></li>
+                        </ul>
+            
+                </div>
+            </div>
+            <div class="right">
+                <div class="name-div">
+                    <h1><input type="text" placeholder="votre nom"> </h1>
+                    <p><input type="text" placeholder="votre titre"></p>
+                </div>
+                <div class="box-2">
+                    <h2>ABOUT ME <i class='bx bxs-user'></i></h2>
+                    <p class="p2"> <input type="text">
+                    </p>
+                </div>
+    
+
+                <div class="box-2">
+                    <div class="fields">
+                    
+                        <h2>Education <i class='bx bxs-edit-alt'></i></h2>
+                        <div id="educationFields">
+                
+                        </div>
+                        <button type="button" id="Educ" onclick="ajouterChampEducation()">Ajouter</button>
+                        <button type="button" id="clear" style="display: none">supprimer</button>
+                    </div>
+                </div>
+
+                <div class="box-2">
+                    <div class="fields">
+                    
+                        <h2>Experiences <i class='bx bx-folder' ></i></h2>
+                        <div id="experienceFields">
+                    
+                        </div>
+                        <button type="button" id="Expr" onclick="ajouterChampExperience()">Ajouter</button>
+                        <button type="button" id="supprimer" style="display: none">supprimer</button>
+                    </div>
+                </div>
+            
+            
+            </div>
+        </form>
+    </div>
+    <script>
+        // Fonction pour afficher l'image sélectionnée
+        function afficherImage(event) {
+            var image = document.getElementById('output');
+            var clearButton = document.getElementById('clearButton');
+            
+            image.style.display = 'block';
+            clearButton.style.display = 'block';
+
+            image.src = URL.createObjectURL(event.target.files[0]);
+        }
+
+        // Gérer le changement d'image
+        document.getElementById('avatar').onchange = function(event) {
+            afficherImage(event);
+        };
+
+        // Gérer le clic sur le bouton "Effacer l'image"
+        document.getElementById('clearButton').onclick = function() {
+            var image = document.getElementById('output');
+            var clearButton = document.getElementById('clearButton');
+            var input = document.getElementById('avatar');
+            
+            image.style.display = 'none';
+            clearButton.style.display = 'none';
+            input.value = null; // Réinitialiser la valeur de l'input pour permettre de sélectionner une nouvelle image
+        };
+        function ajouterChampEducation() {
+        var educationFields = document.getElementById('educationFields');
+        
+        // Ajouter un champ d'éducation
+        var field = document.createElement('div');
+        field.innerHTML = `
+            <input type="text" name="annee[]" placeholder="Année"><br>
+            <input type="text" name="etude[]" placeholder="Études">
+            <br>
+        `;
+        educationFields.appendChild(field);
+        
+        // Rendre visible le bouton "Supprimer" une fois que des champs d'éducation ont été ajoutés
+        var clearButton = document.getElementById('clear');
+        clearButton.style.display = 'block';
+    }
+
+    document.getElementById('clear').onclick = function() {
+        var educationFields = document.getElementById('educationFields');
+
+        // Supprimer tous les champs d'éducation
+        educationFields.innerHTML = '';
+        
+        // Masquer à nouveau le bouton "Supprimer"
+        var clearButton = document.getElementById('clear');
+        clearButton.style.display = 'none';
+    };
+    function ajouterChampExperience() {
+        var experienceFields = document.getElementById('experienceFields');
+        
+        // Ajouter un champ d'éducation
+        var field = document.createElement('div');
+        field.innerHTML = `
+            <input type="text" name="annee[]" placeholder="Année"><br>
+            <input type="text" name="experience[]">
+            <br>
+        `;
+        experienceFields.appendChild(field);
+        
+        // Rendre visible le bouton "Supprimer" une fois que des champs d'éducation ont été ajoutés
+        var clearButton = document.getElementById('supprimer');
+        clearButton.style.display = 'block';
+    }
+
+    document.getElementById('supprimer').onclick = function() {
+        var experience = document.getElementById('experienceFields');
+
+        // Supprimer tous les champs d'éducation
+        experience.innerHTML = '';
+        
+        // Masquer à nouveau le bouton "Supprimer"
+        var clearButton = document.getElementById('supprimer');
+        clearButton.style.display = 'none';
+    };
+      
+       
+    </script>
+</body>
+</html>
